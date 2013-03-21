@@ -1,5 +1,7 @@
 module Pong
   class Player
+    attr_reader :x, :y, :width, :height
+
     def initialize(window)
       @window = window
 

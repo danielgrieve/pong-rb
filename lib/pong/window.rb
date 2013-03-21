@@ -5,6 +5,7 @@ module Pong
      self.caption = 'Pong'
 
      @player = Player.new(self)
+     @ball = Ball.new(self, @player)
     end
 
     def update
@@ -15,10 +16,13 @@ module Pong
       if button_down?(Gosu::KbUp)
         @player.move_up
       end
+
+      @ball.move
     end
 
     def draw
       @player.draw
+      @ball.draw
     end
   end
 end
