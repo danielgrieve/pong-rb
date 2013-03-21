@@ -1,11 +1,5 @@
+$LOAD_PATH << './lib'
 require 'gosu'
+require 'pong'
 
-class MyWindow < Gosu::Window
-  def initialize
-   super(640, 480, false)
-   self.caption = 'Hello World!'
-  end
-end
-
-window = MyWindow.new
-window.show
+Pong::Window.new.show
