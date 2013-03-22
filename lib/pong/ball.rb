@@ -1,7 +1,10 @@
 module Pong
   class Ball
-    def initialize(window, player)
-      @window, @player = window, player
+    def initialize(window)
+      @window = window
+
+      @player = window.player
+      @opponent = window.opponent
 
       @height = 10
       @width = 10
@@ -16,7 +19,7 @@ module Pong
     end
 
     def move
-      if collides_with?(@player)
+      if collides_with_player? || collides_with_opponent?
         @speed_x = -@speed_x
       end
 
@@ -38,16 +41,22 @@ module Pong
     end
 
     private
-    def collides_with?(item)
+    def collides_with_player?
       new_x = @x + @speed_x
       new_y = @y + @speed_y
 
-      new_x >= item.x && (new_y >= item.y && new_y <= (item.y + item.height))
+      new_x >= @player.x && (new_y >= @player.y && new_y <= (@player.y + @player.height))
+    end
+
+    def collides_with_opponent?
+      new_x = @x + @speed_x
+      new_y = @y + @speed_y
+
+      new_x <= @opponent.x && (new_y >= @opponent.y && new_y <= (@opponent.y + @opponent.height))
     end
 
     def collides_with_walls?
       new_y = @y + @speed_y
-
       new_y >= @window.height || new_y <= 0
     end
 

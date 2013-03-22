@@ -1,8 +1,11 @@
 module Pong
-  class Player < Paddle
+  class Opponent < Paddle
     def initialize(window)
       super(window)
-      @x = window.width - @width - 30
+      @x = 30
+    end
+
+    def move
     end
   end
 end
