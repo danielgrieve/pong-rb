@@ -49,7 +49,7 @@ module Pong
 
     def collides_with_walls?
       new_y = @y + @speed_y
-      new_y >= @window.height - 10 || new_y <= 10
+      new_y >= @window.height - 20 || new_y <= 10
     end
 
     def deg_to_rad(degrees)

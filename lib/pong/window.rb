@@ -9,6 +9,8 @@ module Pong
      @ball = Ball.new(self)
      @player = Player.new(self)
      @opponent = Opponent.new(self)
+
+     @color = Gosu::Color.new(155, 255, 255, 255)
     end
 
     def update
@@ -25,9 +27,27 @@ module Pong
     end
 
     def draw
+      draw_walls
       @ball.draw
       @player.draw
       @opponent.draw
+    end
+
+    private
+    def draw_walls
+      draw_quad(
+        0, 0, @color,
+        width, 0, @color,
+        0, 10, @color,
+        width, 10, @color
+      )
+
+      draw_quad(
+        0, height-10, @color,
+        width, height-10, @color,
+        0, height, @color,
+        width, height, @color
+      )
     end
   end
 end
