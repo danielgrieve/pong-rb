@@ -1,6 +1,6 @@
 module Pong
   class Ball
-    attr_reader :x, :y, :width, :height
+    attr_reader :x, :y, :width, :height, :speed_x, :speed_y
 
     def initialize(window)
       @window = window
@@ -28,8 +28,11 @@ module Pong
       @window.player_scored if player_scored?
       @window.opponent_scored if opponent_scored?
 
-      if collides_with?(player) || collides_with?(opponent)
+      if collides_with?(player)
         @speed_x = -@speed_x
+      elsif collides_with?(opponent)
+        @speed_x = -@speed_x
+        @window.opponent.reset_reaction_amount
       end
 
       if collides_with_walls?

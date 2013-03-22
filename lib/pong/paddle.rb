@@ -13,23 +13,23 @@ module Pong
     end
 
     def move_down
-      move_amount = 4
+      movement = 4
 
-      if bottom_point(@y + move_amount) >= max_height
-        move_amount = max_height - (@y + @height)
+      if bottom_point(@y + movement) >= max_height
+        movement = max_height - (@y + @height)
       end
 
-      @y += move_amount
+      @y += movement
     end
 
     def move_up
-      move_amount = 4
+      movement = 4
 
-      if (@y - move_amount) <= min_height
-        move_amount = @y - min_height
+      if (@y - movement) <= min_height
+        movement = @y - min_height
       end
 
-      @y -= move_amount
+      @y -= movement
     end
 
     def draw
