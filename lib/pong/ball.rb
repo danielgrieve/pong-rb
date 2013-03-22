@@ -7,17 +7,25 @@ module Pong
 
       @height = 10
       @width = 10
-      @x = window.width / 2
+
+      @color = Gosu::Color.new(255, 255, 255, 255)
+
+      reset
+    end
+
+    def reset
+      @x = @window.width / 2
       @y = 30
 
       @angle = 45
       @speed_x = 2 # randomise
       @speed_y = 2 # randomise
-
-      @color = Gosu::Color.new(255, 255, 255, 255)
     end
 
     def move
+      @window.player_scored if player_scored?
+      @window.opponent_scored if opponent_scored?
+
       if collides_with?(player) || collides_with?(opponent)
         @speed_x = -@speed_x
       end
@@ -62,6 +70,14 @@ module Pong
 
     def opponent
       @opponent ||= @window.opponent
+    end
+
+    def player_scored?
+      @x <= 0
+    end
+
+    def opponent_scored?
+      @x + @width >= @window.width
     end
   end
 end

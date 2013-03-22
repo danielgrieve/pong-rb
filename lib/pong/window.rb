@@ -11,6 +11,10 @@ module Pong
      @opponent = Opponent.new(self)
 
      @color = Gosu::Color.new(155, 255, 255, 255)
+     @score_font = Gosu::Font.new(self, 'Helvetica', 60)
+
+     @player_score = 0
+     @opponent_score = 0
     end
 
     def update
@@ -28,9 +32,20 @@ module Pong
 
     def draw
       draw_walls
+      draw_scores
       @ball.draw
       @player.draw
       @opponent.draw
+    end
+
+    def player_scored
+      @player_score += 1
+      @ball.reset
+    end
+
+    def opponent_scored
+      @opponent_score += 1
+      @ball.reset
     end
 
     private
@@ -48,6 +63,11 @@ module Pong
         0, height, @color,
         width, height, @color
       )
+    end
+
+    def draw_scores
+      @score_font.draw(@player_score, (width / 2) + 50, 30, 1)
+      @score_font.draw(@opponent_score, (width / 2) - 50, 30, 1)
     end
   end
 end

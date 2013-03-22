@@ -7,21 +7,29 @@ module Pong
 
       @height = 100
       @width = 10
-      @y = 10
+      @y = 20
 
       @color = Gosu::Color.new(255, 255, 255, 255)
     end
 
     def move_down
-      if (@y + @height) < @window.height - 10
-        @y += 4
+      move_amount = 4
+
+      if bottom_point(@y + move_amount) >= max_height
+        move_amount = max_height - (@y + @height)
       end
+
+      @y += move_amount
     end
 
     def move_up
-      if @y > 10
-        @y -= 4
+      move_amount = 4
+
+      if (@y - move_amount) <= min_height
+        move_amount = @y - min_height
       end
+
+      @y -= move_amount
     end
 
     def draw
@@ -31,6 +39,19 @@ module Pong
         @x, @y + @height, @color,
         @x + @width, @y + @height, @color
       )
+    end
+
+    private
+    def bottom_point(y=@y)
+      y + @height
+    end
+
+    def max_height
+      @window.height - 10
+    end
+
+    def min_height
+      10
     end
   end
 end
