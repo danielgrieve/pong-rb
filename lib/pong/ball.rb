@@ -1,10 +1,9 @@
 module Pong
   class Ball
+    attr_reader :x, :y, :width, :height
+
     def initialize(window)
       @window = window
-
-      @player = window.player
-      @opponent = window.opponent
 
       @height = 10
       @width = 10
@@ -19,7 +18,7 @@ module Pong
     end
 
     def move
-      if collides_with_player? || collides_with_opponent?
+      if collides_with?(player) || collides_with?(opponent)
         @speed_x = -@speed_x
       end
 
@@ -41,27 +40,28 @@ module Pong
     end
 
     private
-    def collides_with_player?
-      new_x = @x + @speed_x
-      new_y = @y + @speed_y
+    def collides_with?(paddle)
+      new_x = @x + @speed_x + (@width / 2)
+      new_y = @y + @speed_y + (@height / 2)
 
-      new_x >= @player.x && (new_y >= @player.y && new_y <= (@player.y + @player.height))
-    end
-
-    def collides_with_opponent?
-      new_x = @x + @speed_x
-      new_y = @y + @speed_y
-
-      new_x <= @opponent.x && (new_y >= @opponent.y && new_y <= (@opponent.y + @opponent.height))
+      (new_x >= paddle.x && new_x <= (paddle.x + paddle.width)) && (new_y >= paddle.y && new_y <= (paddle.y + paddle.height))
     end
 
     def collides_with_walls?
       new_y = @y + @speed_y
-      new_y >= @window.height || new_y <= 0
+      new_y >= @window.height - 10 || new_y <= 10
     end
 
     def deg_to_rad(degrees)
       degrees * Math::PI / 180
+    end
+
+    def player
+      @player ||= @window.player
+    end
+
+    def opponent
+      @opponent ||= @window.opponent
     end
   end
 end
