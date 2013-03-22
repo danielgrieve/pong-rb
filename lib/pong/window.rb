@@ -66,8 +66,8 @@ module Pong
     end
 
     def draw_scores
-      @score_font.draw(@player_score, (width / 2) + 50, 30, 1)
-      @score_font.draw(@opponent_score, (width / 2) - 50, 30, 1)
+      @score_font.draw(@player_score, (width / 2) + 50, 30, 2, 1, 1, 0xff00ff00)
+      @score_font.draw(@opponent_score, (width / 2) - 50, 30, 2, 1, 1, 0xff00ff00)
     end
   end
 end

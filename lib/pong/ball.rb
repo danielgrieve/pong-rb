@@ -15,11 +15,13 @@ module Pong
 
     def reset
       @x = @window.width / 2
-      @y = 30
+      @y = @window.height / 2
 
-      @angle = 45
-      @speed_x = 2 # randomise
-      @speed_y = 2 # randomise
+      @speed_x = (Random.rand(4.0..6.0)).round(2)
+      @speed_y = (Random.rand(2.0..4.0)).round(2)
+
+      @speed_x = -@speed_x if (rand * 1).round == 1
+      @speed_y = -@speed_y if (rand * 1).round == 1
     end
 
     def move
@@ -58,10 +60,6 @@ module Pong
     def collides_with_walls?
       new_y = @y + @speed_y
       new_y >= @window.height - 20 || new_y <= 10
-    end
-
-    def deg_to_rad(degrees)
-      degrees * Math::PI / 180
     end
 
     def player
