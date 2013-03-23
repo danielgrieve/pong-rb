@@ -2,10 +2,10 @@ module Pong
   class Opponent < Paddle
     attr_accessor :reaction_amount
 
-    def initialize(window)
-      super(window)
+    def initialize(game)
+      super(game.window)
       @x = 30
-      @ball = window.ball
+      @ball = game.ball
       reset_reaction_amount
     end
 

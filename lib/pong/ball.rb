@@ -2,8 +2,9 @@ module Pong
   class Ball
     attr_reader :x, :y, :width, :height, :speed_x, :speed_y
 
-    def initialize(window)
-      @window = window
+    def initialize(game)
+      @game = game
+      @window = game.window
 
       @height = 10
       @width = 10
@@ -25,21 +26,21 @@ module Pong
     end
 
     def move
-      @window.player_scored if player_scored?
-      @window.opponent_scored if opponent_scored?
+      @game.player_scored if player_scored?
+      @game.opponent_scored if opponent_scored?
 
       if collides_with?(player)
         @speed_x = -@speed_x
-        @window.play_collision
+        @game.play_collision
       elsif collides_with?(opponent)
         @speed_x = -@speed_x
-        @window.play_collision
-        @window.opponent.reset_reaction_amount
+        @game.play_collision
+        @game.opponent.reset_reaction_amount
       end
 
       if collides_with_walls?
         @speed_y = -@speed_y
-        @window.play_collision
+        @game.play_collision
       end
 
       @x += @speed_x
@@ -69,11 +70,11 @@ module Pong
     end
 
     def player
-      @player ||= @window.player
+      @player ||= @game.player
     end
 
     def opponent
-      @opponent ||= @window.opponent
+      @opponent ||= @game.opponent
     end
 
     def player_scored?
