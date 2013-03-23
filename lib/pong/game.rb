@@ -25,6 +25,9 @@ module Pong
       @background_music.volume = 0.1
       @background_music.play(true)
       @collision_sound = Gosu::Sample.new('media/click.mp3')
+
+      @audio_image = Gosu::Image.new(@window, 'media/audio.png', false)
+      @audio_muted_image = Gosu::Image.new(@window, 'media/audio_muted.png', false)
     end
 
     def update
@@ -44,6 +47,7 @@ module Pong
 
     def draw
       draw_paused if @paused
+      draw_audio_image
 
       draw_walls
       draw_scores
@@ -68,7 +72,10 @@ module Pong
 
     def toggle_pause
       if @paused
-        @background_music.play unless @background_music.playing?
+        unless @mute
+          @background_music.play unless @background_music.playing?
+        end
+
         @paused = false
       else
         @background_music.pause if @background_music.playing?
@@ -86,6 +93,10 @@ module Pong
       end
     end
 
+    def quit
+      @background_music.stop
+    end
+
     private
     def draw_paused
       @window.draw_quad(
@@ -99,6 +110,14 @@ module Pong
       text = 'Paused'
       text_width = @paused_font.text_width(text)
       @paused_font.draw(text, (@window.width / 2) - (text_width / 2), (@window.height / 2) - @paused_font.height, 4, 1, 1, 0xffffffff)
+    end
+
+    def draw_audio_image
+      if @mute
+        @audio_muted_image.draw(7, @window.height - 33, 1)
+      else
+        @audio_image.draw(7, @window.height - 33, 1)
+      end
     end
 
     def draw_walls

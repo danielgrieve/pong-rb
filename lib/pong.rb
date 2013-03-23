@@ -1,4 +1,5 @@
 require 'pong/window'
+require 'pong/menu'
 require 'pong/game'
 require 'pong/paddle'
 require 'pong/player'
