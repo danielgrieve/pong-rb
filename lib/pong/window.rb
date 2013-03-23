@@ -17,6 +17,7 @@ module Pong
 
     def button_down(id)
       @game.toggle_pause if id == Gosu::KbP
+      @game.toggle_mute if id == Gosu::KbM && !@game.paused
     end
   end
 end

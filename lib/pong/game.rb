@@ -4,7 +4,9 @@ module Pong
 
     def initialize(window)
       @window = window
+
       @paused = false
+      @mute = false
 
       @ball = Ball.new(self)
       @player = Player.new(self)
@@ -61,7 +63,7 @@ module Pong
     end
 
     def play_collision
-      @collision_sound.play(0.5, 1, false)
+      @collision_sound.play(0.5, 1, false) unless @mute
     end
 
     def toggle_pause
@@ -71,6 +73,16 @@ module Pong
       else
         @background_music.pause if @background_music.playing?
         @paused = true
+      end
+    end
+
+    def toggle_mute
+      @mute = !@mute
+
+      if @mute
+        @background_music.pause
+      else
+        @background_music.play
       end
     end
 
