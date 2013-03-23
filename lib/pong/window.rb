@@ -15,6 +15,10 @@ module Pong
 
      @player_score = 0
      @opponent_score = 0
+
+     @background_music = Gosu::Sample.new('media/background.mp3')
+     @background_music.play(0.1, 1, true)
+     @collision_sound = Gosu::Sample.new('media/click.mp3')
     end
 
     def update
@@ -46,6 +50,10 @@ module Pong
     def opponent_scored
       @opponent_score += 1
       @ball.reset
+    end
+
+    def play_collision
+      @collision_sound.play(0.5, 1, false)
     end
 
     private

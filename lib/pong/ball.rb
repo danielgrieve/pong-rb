@@ -30,13 +30,16 @@ module Pong
 
       if collides_with?(player)
         @speed_x = -@speed_x
+        @window.play_collision
       elsif collides_with?(opponent)
         @speed_x = -@speed_x
+        @window.play_collision
         @window.opponent.reset_reaction_amount
       end
 
       if collides_with_walls?
         @speed_y = -@speed_y
+        @window.play_collision
       end
 
       @x += @speed_x
